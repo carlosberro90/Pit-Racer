@@ -1,0 +1,127 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with account and pro membership info",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "isProMember": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Bike": {
+      "title": "Bike",
+      "description": "Registered motorcycle telemetry profile",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "brand": { "type": "string" },
+        "model": { "type": "string" },
+        "year": { "type": "number" },
+        "odometer": { "type": "number" },
+        "tankCapacity": { "type": "number" },
+        "color": { "type": "string" },
+        "nickname": { "type": "string" },
+        "fuelType": { "type": "string" }
+      },
+      "required": ["userId", "brand", "model", "odometer", "tankCapacity"]
+    },
+    "FuelLog": {
+      "title": "FuelLog",
+      "description": "Fuel refill entry with liters, cost in USD, and odometer",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "bikeId": { "type": "string" },
+        "date": { "type": "string" },
+        "liters": { "type": "number" },
+        "pricePerLiterUsd": { "type": "number" },
+        "totalUsd": { "type": "number" },
+        "odometer": { "type": "number" },
+        "isFullTank": { "type": "boolean" },
+        "notes": { "type": "string" }
+      },
+      "required": ["userId", "bikeId", "date", "liters", "totalUsd", "odometer"]
+    },
+    "MaintenanceTask": {
+      "title": "MaintenanceTask",
+      "description": "Maintenance interval tracking task for bike components",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "bikeId": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "intervalKm": { "type": "number" },
+        "lastServicedKm": { "type": "number" },
+        "lastServicedDate": { "type": "string" },
+        "colorHex": { "type": "string" },
+        "iconName": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["userId", "bikeId", "title", "intervalKm", "lastServicedKm"]
+    },
+    "ServiceLog": {
+      "title": "ServiceLog",
+      "description": "Completed maintenance service log entry",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "bikeId": { "type": "string" },
+        "taskId": { "type": "string" },
+        "taskTitle": { "type": "string" },
+        "date": { "type": "string" },
+        "odometer": { "type": "number" },
+        "costUsd": { "type": "number" },
+        "workshopName": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["userId", "bikeId", "taskId", "taskTitle", "date", "odometer", "costUsd"]
+    },
+    "GpsTrip": {
+      "title": "GpsTrip",
+      "description": "Recorded GPS ride telemetry",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "bikeId": { "type": "string" },
+        "date": { "type": "string" },
+        "durationSeconds": { "type": "number" },
+        "distanceKm": { "type": "number" },
+        "avgSpeedKmh": { "type": "number" },
+        "maxSpeedKmh": { "type": "number" }
+      },
+      "required": ["userId", "bikeId", "date", "durationSeconds", "distanceKm"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "UserProfile" },
+      "description": "User account documents"
+    },
+    "/bikes/{bikeId}": {
+      "schema": { "$ref": "Bike" },
+      "description": "Motorcycle telemetry documents"
+    },
+    "/fuel_logs/{fuelId}": {
+      "schema": { "$ref": "FuelLog" },
+      "description": "Fuel refill entries"
+    },
+    "/maintenance_tasks/{taskId}": {
+      "schema": { "$ref": "MaintenanceTask" },
+      "description": "Maintenance interval tracking tasks"
+    },
+    "/service_logs/{logId}": {
+      "schema": { "$ref": "ServiceLog" },
+      "description": "Completed service history"
+    },
+    "/trips/{tripId}": {
+      "schema": { "$ref": "GpsTrip" },
+      "description": "Recorded GPS trips"
+    }
+  }
+}

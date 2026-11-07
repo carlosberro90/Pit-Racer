@@ -1,0 +1,6 @@
+{
+  "name": "Pit Racer",
+  "description": "Control y telemetría de motocicletas: odómetro, gastos de combustible en USD, mantenimiento preventivo, rutas GPS y talleres mecánicos verificados.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
